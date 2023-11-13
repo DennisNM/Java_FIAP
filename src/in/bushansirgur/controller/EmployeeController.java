@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import in.bushansirgur.dao.EmployeeDAO;
 import in.bushansirgur.dao.EmployeeDAOImpl;
 import in.bushansirgur.model.Employee;
+import in.bushansirgur.model.ListFinances;
+import in.bushansirgur.model.user_id;
 
 public class EmployeeController extends HttpServlet {
 	
@@ -78,9 +80,10 @@ public class EmployeeController extends HttpServlet {
 
 	private void listEmployee(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		List<Employee> theList = employeeDAO.get();
-		
-		request.setAttribute("list", theList);
+	user_id id = new user_id();
+		List<ListFinances> list  = employeeDAO.getFinances(id.getId());
+		request.setAttribute("list", list);
+		System.out.println(list);
 		
 		dispatcher = request.getRequestDispatcher("/views/employee-list.jsp");
 		
