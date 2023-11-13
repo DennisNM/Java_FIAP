@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 import in.bushansirgur.model.Login;
+import in.bushansirgur.model.user_id;
 import in.bushansirgur.util.DBConnectionUtil;
 
 public class LoginDAOImpl implements LoginDAO{
@@ -33,6 +34,8 @@ public class LoginDAOImpl implements LoginDAO{
 			System.out.println(loginBean.getEmail() + loginBean.getPassword());
 			if(checkEmail != null && checkEmail != ""){
 				System.out.println("true");
+				int useridsession = userid(loginBean);
+				System.out.println(useridsession);
 				return "true";
 			}
 			else{
@@ -46,4 +49,36 @@ public class LoginDAOImpl implements LoginDAO{
 		return "error";
 	}
 
+	
+	
+	public int userid(Login loginBean) {
+		
+		try{
+			int checkUser = 0;
+			String query="select * from tbl_login where email = " + "'"+ loginBean.getEmail() +"'" + " and password = " + "'" + loginBean.getPassword() + "'";
+			Connection con=DBConnectionUtil.openConnection();
+		//	PreparedStatement ps=con.prepareStatement(query);
+			
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+	
+			while(rs.next()){
+
+			checkUser = rs.getInt("ID");
+			}
+			
+			user_id id = new user_id();
+			
+			id.setId(checkUser);
+			
+			return id.getId();
+		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return 0;
+		
+		
+	}
 }

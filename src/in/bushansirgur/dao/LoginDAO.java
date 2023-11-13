@@ -4,4 +4,6 @@ import in.bushansirgur.model.Login;
 
 public interface LoginDAO {
 	String loginCheck(Login loginBean);
+	
+	int userid(Login loginBean);
 }

@@ -35,17 +35,28 @@
 			<thead>
 				<tr class = "thead-dark">
 					<th>Name</th>
-					<th>Department</th>
-					<th>Date of birth</th>
+					<th>valor</th>
+					<th>Tipo</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${list}" var="employee">
 					<tr>
-						<td>${employee.name}</td>
-						<td>${employee.department}</td>
-						<td>${employee.dob}</td>
+						<td>${employee.name_finance}</td>
+						<td>R$: ${employee.value}</td>
+			<c:choose>
+			 <c:when test="${employee.type_value eq 'D'}">
+			 
+					        <td>Despesa</td>
+					    </c:when>
+					    <c:otherwise>
+					        <td>Receita</td> 
+					        
+			 </c:otherwise>
+			</c:choose>
+						
+						
 						<td> 
 							<a href = "${pageContext.request.contextPath}/EmployeeController?action=EDIT&id=${employee.id}">Edit</a> 
 							| 
