@@ -24,25 +24,20 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		
 		List<ListFinances> list = new ArrayList();		
 		
-		ListFinances finances = null;
+
 		user_id id = new user_id();
 		System.out.println(id.getId());
-		ListFinances finances2 = new ListFinances();
-		finances2.setId(null);
-		finances2.setId(1);
-		finances2.setName_finance("a");
-		finances2.setUser_id(5);
-		finances2.setValue(120);
-		finances2.setType_value("D");
-		list.add(finances2);
+		
 		System.out.println(list);
 		try {
-			finances = new ListFinances();
+
 			String sql = "SELECT * FROM tbl_Finances where user_id =" + user_id;
 			connection = DBConnectionUtil.openConnection();
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(sql);
-			if(resultSet.next()) {
+			
+			while(resultSet.next()) {
+			ListFinances finances  = new ListFinances();
 				finances.setId(resultSet.getInt("id"));
 				finances.setName_finance(resultSet.getString("name_finance"));
 				finances.setUser_id(resultSet.getInt("user_id"));
@@ -58,7 +53,101 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		
 		return list;
 	}
+	
+	public ListFinances getSingleFinances(int id) {
+				
+		try {
+			String sql = "SELECT * FROM tbl_Finances where id =" + id;
 
+			connection = DBConnectionUtil.openConnection();
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(sql);
+			ListFinances finances  = new ListFinances();
+			if(resultSet.next()) {
+				finances.setId(resultSet.getInt("id"));
+				finances.setName_finance(resultSet.getString("name_finance"));
+				finances.setUser_id(resultSet.getInt("user_id"));
+				finances.setValue(resultSet.getFloat("value"));
+				finances.setType_value(resultSet.getString("type_value"));
+			}
+		return finances;
+		
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+
+	
+	public	boolean save(ListFinances finances) {
+		try {
+			user_id id = new user_id();
+			boolean flag = false;
+			String sql = "INSERT INTO tbl_Finances(NAME_FINANCE, USER_ID, TYPE_VALUE,VALUE)VALUES"
+					+ "('"+finances.getName_finance()+"', "+id.getId()+", '"+finances.getType_value()+"', "+finances.getValue()+")";
+
+			connection = DBConnectionUtil.openConnection();
+			statement = connection.createStatement();
+			statement.executeUpdate(sql);
+			flag = true;
+		return flag;
+		
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+		
+		
+	}
+	
+	public	boolean deleteFinances(int finances_id) {
+		
+		try {
+			user_id id = new user_id();
+			boolean flag = false;
+			String sql = "DELETE FROM tbl_Finances WHERE id =" + finances_id;
+
+			connection = DBConnectionUtil.openConnection();
+			statement = connection.createStatement();
+			statement.executeUpdate(sql);
+			flag = true;
+		return flag;
+		
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+		
+		
+	}
+
+	public	boolean updateFiances(ListFinances finances) {
+		try {
+			user_id id = new user_id();
+			boolean flag = false;
+			String sql = "UPDATE tbl_Finances SET NAME_FINANCE = '" + finances.getName_finance() + "', "
+			        + "TYPE_VALUE = '" + finances.getType_value() + "', "
+			        + "VALUE = " + finances.getValue() + " "
+			        + "WHERE id = '" + finances.getId() + "'";
+
+			connection = DBConnectionUtil.openConnection();
+			statement = connection.createStatement();
+			statement.executeUpdate(sql);
+			flag = true;
+		return flag;
+		
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	
+	
+}
 	@Override
 	public Employee get(int id) {
 		Employee employee = null;

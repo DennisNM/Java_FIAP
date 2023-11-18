@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Employee Directory</title>
+<title>Finances Directory</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>
 </head>
@@ -22,13 +22,13 @@
 		<div class="float-right">
 			<a href="${pageContext.request.contextPath}/logout.jsp">Logout</a>
 		</div>
-		<h1>Employee Directory</h1>
+		<h1>Finances Directory</h1>
 		<hr/>
 		
 		<p>${NOTIFICATION}</p>
 		
 		<p>
-			<button class = "btn btn-primary" onclick="window.location.href = 'views/employee-form.jsp'">Add Employee</button>
+			<button class = "btn btn-primary" onclick="window.location.href = 'views/employee-form.jsp'">Add Finance</button>
 		</p>
 	
 		<table class = "table table-striped table-bordered" id="datatable">
@@ -58,6 +58,7 @@
 						
 						
 						<td> 
+						<p>${employee.id}</p>
 							<a href = "${pageContext.request.contextPath}/EmployeeController?action=EDIT&id=${employee.id}">Edit</a> 
 							| 
 							<a href = "${pageContext.request.contextPath}/EmployeeController?action=DELETE&id=${employee.id}">Delete</a> 

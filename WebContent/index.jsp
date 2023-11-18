@@ -45,6 +45,10 @@
 	        	</div>
        		</div>
         	</form>
+        	<div>
+        	<a href="Cadastro.jsp">Cadastrar</a>
+        	
+        	</div>
         </div>
     </body>
 </html>

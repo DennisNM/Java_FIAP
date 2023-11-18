@@ -57,8 +57,9 @@ public class EmployeeController extends HttpServlet {
 	private void deleteEmployee(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String id = request.getParameter("id");
-	
-		if(employeeDAO.delete(Integer.parseInt(id))) {
+		boolean check =	employeeDAO.deleteFinances(Integer.parseInt(id));
+		
+		if(check) {
 			request.setAttribute("NOTIFICATION", "Employee Deleted Successfully!");
 		}
 		
@@ -69,9 +70,9 @@ public class EmployeeController extends HttpServlet {
 		
 		String id = request.getParameter("id");
 		
-		Employee theEmployee = employeeDAO.get(Integer.parseInt(id));
-		
-		request.setAttribute("employee", theEmployee);
+	//	Employee theEmployee = employeeDAO.get(Integer.parseInt(id));
+		ListFinances finaceEmployee = employeeDAO.getSingleFinances(Integer.parseInt(id));
+		request.setAttribute("employee", finaceEmployee);
 		
 		dispatcher = request.getRequestDispatcher("/views/employee-form.jsp");
 		
@@ -92,23 +93,24 @@ public class EmployeeController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String id = request.getParameter("id");
+		String id = request.getParameter("id");	
 		
-		Employee e = new Employee();
-		e.setName(request.getParameter("name"));
-		e.setDepartment(request.getParameter("department"));
-		e.setDob(request.getParameter("dob"));
+		ListFinances finance = new ListFinances();
+		
+		finance.setName_finance(request.getParameter("name"));
+		finance.setType_value(request.getParameter("employeeType"));
+		finance.setValue(Float.parseFloat(request.getParameter("dob")));
 		
 		if(id.isEmpty() || id == null) {
 			
-			if(employeeDAO.save(e)) {
+			if(employeeDAO.save(finance)) {
 				request.setAttribute("NOTIFICATION", "Employee Saved Successfully!");
 			}
 		
 		}else {
 			
-			e.setId(Integer.parseInt(id));
-			if(employeeDAO.update(e)) {
+			finance.setId(Integer.parseInt(id));
+			if(employeeDAO.updateFiances(finance)) {
 				request.setAttribute("NOTIFICATION", "Employee Updated Successfully!");
 			}
 			

@@ -58,7 +58,7 @@ public class LoginDAOImpl implements LoginDAO{
 			String query="select * from tbl_login where email = " + "'"+ loginBean.getEmail() +"'" + " and password = " + "'" + loginBean.getPassword() + "'";
 			Connection con=DBConnectionUtil.openConnection();
 		//	PreparedStatement ps=con.prepareStatement(query);
-			
+			System.out.println(con);
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 	
