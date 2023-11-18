@@ -21,15 +21,19 @@
 				<form action = "${pageContext.request.contextPath}/EmployeeController" method="POST">
 				
 					<div class = "form-group">
-						<input type = "text" class = "form-control" name = "name" placeholder = "Enter Name" value = "${employee.name}"/>
+						<input type = "text" class = "form-control" name = "name" placeholder = "Coloque o nome da finança" value = "${employee.name_finance}"/>
 					</div>
 				
 					<div class = "form-group">
-						<input type = "date" class = "form-control" name = "dob" value = "${employee.dob}"/>
+						<input placeholder = "Coloque o valor" type = "number" class = "form-control" name = "dob" value = "${employee.value}"/>
 					</div>
 				
 					<div class="form-group">
-					  	<input type = "text" class = "form-control" name = "department" placeholder = "Enter Department" value = "${employee.department}"/>
+				<select class="form-select" aria-label="Default select example" name="employeeType">
+				
+					    <option value="R" ${employee.type_value == 'R' ? 'selected' : ''}>Receita</option>
+					    <option value="D" ${employee.type_value == 'D' ? 'selected' : ''}>Despesa</option>
+				</select>
 					</div>
 				
 					<input type = "hidden" name = "id" value = "${employee.id}"/>
